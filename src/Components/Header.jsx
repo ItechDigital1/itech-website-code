@@ -10,13 +10,27 @@ const Header=()=>{
     const toggleDropdown = (index) => {
         setDropdownOpen(dropdownOpen === index ? null : index);
   };
-    const [images,setImages]=useState([]);
-    useEffect(()=>{
-      fetch('../src/images.json')
-      .then(response=>response.json())
-      .then(data=>setImages(data))
-      .catch(error=>console.log(error))
+    
+    const [images, setImages] = useState([]);
+    const [currentImage, setCurrentImage] = useState(0);
+
+    useEffect(() => {
+      const fetchImages = async () => {
+        try {
+          const response = await fetch('../src/images.json');
+          const data = await response.json();
+          setImages(data);
+        } catch (error) {
+          console.error('Error fetching images:', error);
+        }
+      };
+      fetchImages();
     }, []);
+    
+    const handleSlideChange = (index) => {
+      setCurrentImage(index);
+    };
+
     return(
         <div className="App">
             <link
@@ -285,293 +299,26 @@ const Header=()=>{
       </div>
       </div>
 
-      {/* ===========Components ============ */}
-      <div id='view-image' className="image-carousel">
-      {images.map(image=>(
-        <img
-        key={image.id}
-        src={image.src}
-        alt={image.alt}
-        className='img-fluid'/>
+      {/* =============Auto-carousel================== */}
+      
+      <div className="carousel-container">
+    <div className="carousel-content">
+      {images.map((image, index) => (
+        <div key={image.id || index} className={`carousel-image-wrapper ${currentImage === index ? 'active' : ''}`}>
+          <img
+            className="carousel-image"
+            src={image.src}
+            alt={image.alt || 'Image'}
+            onClick={() => handleSlideChange(index)}
+          />
+          {/* <div className="carousel-image-info"> */}
+            <h3 className="carousel-image-name">{image.name}</h3>
+            <p className="carousel-image-alt">{image.alt || 'Image'}</p>
+          {/* </div> */}
+        </div> 
       ))}
-      </div>
-      {/* =============carousel================== */}
-      {/* <section
-        class="regular bg-white"
-        style="
-          position: sticky;
-          top: 90px;
-          z-index: 2;
-          padding-top: 0px;
-          height: 294px;
-        "
-      >
-        <div class="container mt-4 mb-4">
-          <div class="owl-carousel owl-theme">
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Clonester.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Clonster"
-                  id="btnslide1"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Clonester</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Ruggedised Hand Held Device for Extremely Fast Parallel
-                      Imaging.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/clonester.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Lapster.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Lapster"
-                  id="btnslide2"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Lapster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Tough On-Field Laptops in XEON or i7 / i9 CPU, Large Ram
-                      &amp; Drive Bays.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/lapster.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Cubester.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Cubester"
-                  id="btnslide3"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Cubester</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      On - Field Or In-Lab, Raid Storage for Parallel Imaging
-                      &amp; Data Processing.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/cubesterParent.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Roadster.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Roadster"
-                  id="btnslide4"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Roadster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Rugged XEON Mobile Workstations. All Terrain Use &amp;
-                      Data Processing.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/roadsterParent.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Deskster-X.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Deskster"
-                  id="btnslide5"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Deskster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Unique Desktop Workstations Series Designed By Forensic
-                      Professionals.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/desksterParent.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Graphster-T.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Graphster"
-                  id="btnslide6"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Graphster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Multiple GPU Workstations designed for High Speed Password
-                      Cracking.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/graphsterParent.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Telster.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Telster"
-                  id="btnslide10"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Telster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      GPU Server with 16x Tesla V100 NVLink and InfiniBand for
-                      AI, ML and DL.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/telster.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Labster.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Labster"
-                  id="btnslide7"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Labster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Ergonomically Designed Lab Station for Ultimate Audio
-                      Video Forensics.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/labster.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Rackster-DC.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Rackster"
-                  id="btnslide8"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Rackster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Multiuser Servers for Operations Under MPLS or Discreet
-                      Networks.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    // href="<%=request.getContextPath()%>/products/hardware/racksterParent.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-
-            <div class="item">
-              <div class="card">
-                <img
-                  src="<%=request.getContextPath()%>/img/Trackster.jpg"
-                  class="img-fluid card-img-top"
-                  alt="Rackster"
-                  id="btnslide9"
-                  onmouseout="resetimg();"
-                />
-                <div class="card-body">
-                  <h4 class="card-title text-center">Trackster</h4>
-                  <div class="card-text text-justify">
-                    <p style="font-size: 14px; margin-top: 5px; color: #3b3b3b">
-                      Fully Customizable Digital Forensics Vehicle with Power
-                      &amp; Signal Jammer.
-                    </p>
-                  </div>
-                  <a
-                    class="btn btn-outline-primary btn-sm"
-                    id="readbtn"
-                    href="<%=request.getContextPath()%>/products/hardware/trackster.jsp"
-                    >Read More</a
-                  >
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section> */}
+    </div>
+  </div>
     </div>
     )
 }
