@@ -152,12 +152,13 @@ a{
     display: flex;
     animation: carousel 105s infinite linear;
     overflow: hidden;
+   
   }
   
-  .carousel-image-wrapper:hover .carousel-content {
-    animation-play-state: paused; 
+  .carousel-content:hover{
+    animation-play-state: paused;
   }
-
+ 
   .carousel-image-wrapper {
     margin-top:20px;
     width: 80%;
@@ -171,13 +172,37 @@ a{
     justify-content: center;
   }
 
+  .read-more-button-wrapper {
+    margin-top: 10px; 
+  }
+
+  .read-more-button {
+    padding: 10px 20px;
+    background-color: #7c1717; 
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .read-more-button:hover {
+    background-color: #ce0404; 
+  }
+
+  .carousel-image-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .carousel-image-alt{
     display:flex;
     justify-content: center;
   }
   .carousel-image {
     width: auto;
-    height: auto; /* adjust this value to your desired height */
+    height: auto; 
     object-fit: fill;
     transition: transform 0.5s ease-in-out;
     margin: 10px;
@@ -211,4 +236,11 @@ a{
     100% {
       transform: translateX(-100%);
     }
+  }
+
+  /* ======================HIGHLIGHTS==================== */
+  .highlights-container {
+    position: relative;
+    overflow: hidden;
+    height: 500px;
   }

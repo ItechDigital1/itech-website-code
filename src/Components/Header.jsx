@@ -33,7 +33,7 @@ const Header=()=>{
 
     return(
         <div className="App">
-            <link
+            <link 
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
       />
@@ -303,22 +303,31 @@ const Header=()=>{
       
       <div className="carousel-container">
     <div className="carousel-content">
-      {images.map((image, index) => (
-        <div key={image.id || index} className={`carousel-image-wrapper ${currentImage === index ? 'active' : ''}`}>
+    {images.map((image, index) => (
+      <div key={image.id || index} className={`carousel-image-wrapper ${currentImage === index ? 'active' : ''}`}>
           <img
-            className="carousel-image"
-            src={image.src}
-            alt={image.alt || 'Image'}
-            onClick={() => handleSlideChange(index)}
+          className="carousel-image"
+          src={image.src}
+          alt={image.alt || 'Image'}
+          onClick={() => handleSlideChange(index)}
           />
-          {/* <div className="carousel-image-info"> */}
+          <div className="carousel-image-info">
             <h3 className="carousel-image-name">{image.name}</h3>
             <p className="carousel-image-alt">{image.alt || 'Image'}</p>
-          {/* </div> */}
-        </div> 
+            <div className="read-more-button-wrapper">
+          <button className="read-more-button" onClick={() => handleReadMore(image.id)}>Read More</button>
+        </div>
+      </div>
+    </div>   
       ))}
-    </div>
   </div>
+  </div>
+
+  {/*============Highlights======================== */}
+      <div className="highlights-container">
+        <h3>HIGHLIGHTS</h3>
+
+      </div>
     </div>
     )
 }
