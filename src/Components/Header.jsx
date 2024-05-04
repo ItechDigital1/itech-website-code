@@ -61,35 +61,35 @@ const Header=()=>{
                 </a>
                 <a
                   href="https://www.facebook.com/ITECHDIGITALFORENSICSINDIA/"
-                  // target="_blank"
+                   target="_blank"
                   class="facebook"
                 >
                   <i class="fa fa-facebook"></i>
                 </a>
                 <a
                   href="https://twitter.com/ItechForensics"
-                  // target="_blank"
+                   target="_blank"
                   class="twitter"
                 >
                   <i class="fa fa-twitter" aria-hidden="true"></i>
                 </a>
                 <a
                   href="https://www.linkedin.com/company/itech-digital-forensics-pvt-ltd/?viewAsMember=true"
-                  // target="_blank"
+                   target="_blank"
                   class="linkedin"
                 >
                   <i class="fa fa-linkedin" aria-hidden="true"></i>
                 </a>
                 <a
                   href="https://www.instagram.com/itechforensics/"
-                  // target="_blank"
+                   target="_blank"
                   class="instagram"
                 >
                   <i class="fa fa-instagram" aria-hidden="true"></i>
                 </a>
                 <a
                   href="https://www.youtube.com/channel/UCj5-XB9Q3J6qcMp4nx-7_1w?view_as=subscriber"
-                  // target="_blank"
+                   target="_blank"
                   class="youtube"
                 >
                   <i class="fa fa-youtube" aria-hidden="true"></i>
@@ -108,7 +108,7 @@ const Header=()=>{
            </div>
            <nav className="navbar">
             <ul className="navbar-nav">
-            <a href="#" className="brand-nav">Home</a>
+            <a href="/" className="brand-nav">Home</a>
             <li className="nav-item dropdown">
             <a 
             className="nav-link dropdown-toggle"
@@ -202,7 +202,7 @@ const Header=()=>{
             <ul className={`dropdown-menu ${dropdownOpen === 2 ? "show" : ""}`}
             aria-labelledby="navbarDropdown">
                 <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" href="/#">
                 Government CSR Projects
                 </a>
             </li>
