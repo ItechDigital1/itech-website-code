@@ -4,14 +4,11 @@ import Footer from '../src/Components/Footer';
 
 const HomePage = () => {
   return (
-    <div>  
+     
       <div className="Top-Header">
         <Header/>
       </div>
-      <div className="footer">   
-        <Footer/>
-      </div>
-    </div>
+
   );
 }
 
