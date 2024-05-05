@@ -7,6 +7,7 @@ const HomePage = () => {
      
       <div className="Top-Header">
         <Header/>
+        <Footer/>
       </div>
 
   );
